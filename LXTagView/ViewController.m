@@ -27,8 +27,9 @@
     
 }
 
-- (void)LXTagViewSelectedArray:(NSMutableArray *)selectedArray {
-    NSLog(@"%@", selectedArray);
+
+- (void)LXTagViewWithSelectedArray:(NSMutableArray *)selectedArray WithSelectedTag:(UIButton *)selectedTag {
+    NSLog(@"%@ %ld", selectedArray, selectedTag.tag);
 }
 
 

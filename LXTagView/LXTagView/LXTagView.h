@@ -10,7 +10,8 @@
 
 @protocol LXTagViewDelegate <NSObject>
 
-- (void)LXTagViewSelectedArray:(NSMutableArray *)selectedArray;
+- (void)LXTagViewWithSelectedArray:(NSMutableArray *)selectedArray
+                   WithSelectedTag:(UIButton *)selectedTag;
 
 @end
 
@@ -54,6 +55,9 @@
 
 //tag cornerRadius. default 0.
 @property (nonatomic, assign) CGFloat tagCornerRadius;
+
+//is tag only support click not selected. default true.
+@property (nonatomic, assign) BOOL isTagSelected;
 
 //dataSource.
 @property (nonatomic, strong) NSArray *dataArray;

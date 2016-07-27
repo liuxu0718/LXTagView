@@ -5,8 +5,7 @@
 
 
 ##selectedResult
-####- (void)LXTagViewSelectedArray:(NSMutableArray *)selectedArray;
-
+####- (void)LXTagViewWithSelectedArray:(NSMutableArray *)selectedArray WithSelectedTag:(UIButton *)selectedTag
 
 ##property
 //tag height. default 30.
@@ -60,6 +59,10 @@
 //tag cornerRadius. default 0.
 
 @property (nonatomic, assign) CGFloat tagCornerRadius;
+
+//is tag only support click not selected. default true.
+
+@property (nonatomic, assign) BOOL isTagSelected;
 
 //dataSource.
 

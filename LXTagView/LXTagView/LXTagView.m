@@ -36,6 +36,7 @@ static NSInteger row = 0;
         _leftSpace = 15;
         _rightSpace = 15;
         _tagCornerRadius = 0;
+        _isTagSelected = true;
         _dataArray = [NSArray array];
         _selectedArray = [NSMutableArray array];
     }
@@ -50,37 +51,41 @@ static NSInteger row = 0;
 
 - (void)initTagView {
     for (int i = 0; i < _dataArray.count; i++) {
-        UIButton *tag = [[UIButton alloc]init];
-        tag.backgroundColor = _tagBackgroundColor;
-        [tag setTitle:_dataArray[i] forState:UIControlStateNormal];
-        [tag setTitleColor:_tagTextColor forState:UIControlStateNormal];
-        tag.titleLabel.font = _tagFont;
-        tag.layer.borderWidth = _tagBorderWidth;
-        tag.layer.borderColor = _tagBorderColor.CGColor;
-        tag.layer.cornerRadius = _tagCornerRadius;
-        tag.frame = [self getTagFrameWithIndex:i];
-        [tag addTarget:self action:@selector(tagAction:) forControlEvents:UIControlEventTouchDown];
-        [self addSubview:tag];
+        UIButton *tagButton = [[UIButton alloc]init];
+        tagButton.tag = i;
+        tagButton.backgroundColor = _tagBackgroundColor;
+        [tagButton setTitle:_dataArray[i] forState:UIControlStateNormal];
+        [tagButton setTitleColor:_tagTextColor forState:UIControlStateNormal];
+        tagButton.titleLabel.font = _tagFont;
+        tagButton.layer.borderWidth = _tagBorderWidth;
+        tagButton.layer.borderColor = _tagBorderColor.CGColor;
+        tagButton.layer.cornerRadius = _tagCornerRadius;
+        tagButton.frame = [self getTagFrameWithIndex:i];
+        [tagButton addTarget:self action:@selector(tagAction:) forControlEvents:UIControlEventTouchDown];
+        [self addSubview:tagButton];
     }
     self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (row + 1) * (_tagHeight + _tagMargin) - _tagMargin);
     self.backgroundColor = [UIColor cyanColor];
 }
 
 - (void)tagAction:(UIButton *)sender {
-    if ([sender.backgroundColor isEqual:_tagBackgroundColor]) {
-        sender.backgroundColor = _tagSelectedBackgroundColor;
-        [sender setTitleColor:_tagSelectedTextColor forState:UIControlStateNormal];
-        sender.layer.borderColor = [UIColor clearColor].CGColor;
-        [_selectedArray addObject:sender.titleLabel.text];
-    } else {
-        sender.backgroundColor = _tagBackgroundColor;
-        [sender setTitleColor:_tagTextColor forState:UIControlStateNormal];
-        sender.layer.borderColor = _tagBorderColor.CGColor;
-        [_selectedArray removeObject:sender.titleLabel.text];
+    if (_isTagSelected) {
+        if ([sender.backgroundColor isEqual:_tagBackgroundColor]) {
+            sender.backgroundColor = _tagSelectedBackgroundColor;
+            [sender setTitleColor:_tagSelectedTextColor forState:UIControlStateNormal];
+            sender.layer.borderColor = [UIColor clearColor].CGColor;
+            [_selectedArray addObject:sender.titleLabel.text];
+        } else {
+            sender.backgroundColor = _tagBackgroundColor;
+            [sender setTitleColor:_tagTextColor forState:UIControlStateNormal];
+            sender.layer.borderColor = _tagBorderColor.CGColor;
+            [_selectedArray removeObject:sender.titleLabel.text];
+        }
     }
-    if ([_delegate respondsToSelector:@selector(LXTagViewSelectedArray:)]) {
-        [_delegate LXTagViewSelectedArray:_selectedArray];
+    if ([_delegate respondsToSelector:@selector(LXTagViewWithSelectedArray:WithSelectedTag:)]) {
+        [_delegate LXTagViewWithSelectedArray:_selectedArray WithSelectedTag:sender];
     }
+    
 }
 
 - (CGRect)getTagFrameWithIndex:(NSInteger)index {
