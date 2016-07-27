@@ -65,4 +65,4 @@
 
 @property (nonatomic, strong) NSArray *dataArray;
 
-###如有特殊需求可以直接修改源码, 实现方式很简单.有疑问请issue我, 谢谢.
+###如有特殊需求可以直接修改源码, 实现方式很简单.有疑问或者发现bug请issue我或者给我发邮件, 谢谢.
