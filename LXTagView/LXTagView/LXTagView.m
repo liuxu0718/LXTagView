@@ -34,7 +34,9 @@ static NSInteger row = 0;
         _tagPadding = 10;
         _tagMargin = 10;
         _leftSpace = 15;
-        _rightSpace = 15;
+        _rightSpace = _leftSpace;
+        _topSpace = _leftSpace;
+        _bottomSpace = _leftSpace;
         _tagCornerRadius = 0;
         _isTagSelected = true;
         _dataArray = [NSArray array];
@@ -64,7 +66,7 @@ static NSInteger row = 0;
         [tagButton addTarget:self action:@selector(tagAction:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:tagButton];
     }
-    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (row + 1) * (_tagHeight + _tagMargin) - _tagMargin);
+    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (row + 1) * (_tagHeight + _tagMargin) - _tagMargin + _topSpace + _bottomSpace);
     self.backgroundColor = [UIColor cyanColor];
 }
 
@@ -106,7 +108,7 @@ static NSInteger row = 0;
         }
         contentLength += tagLength;
     }
-    return CGRectMake(x, row * (_tagMargin + _tagHeight), tagLength, _tagHeight);
+    return CGRectMake(x, _topSpace + row * (_tagMargin + _tagHeight), tagLength, _tagHeight);
 }
 
 - (CGFloat)getTagLengthWithString:(NSString *)string {

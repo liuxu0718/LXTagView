@@ -53,6 +53,12 @@
 //right space. default equal left.
 @property (nonatomic, assign) CGFloat rightSpace;
 
+//top space. default equal left.
+@property (nonatomic, assign) CGFloat topSpace;
+
+//top space. default equal left.
+@property (nonatomic, assign) CGFloat bottomSpace;
+
 //tag cornerRadius. default 0.
 @property (nonatomic, assign) CGFloat tagCornerRadius;
 
