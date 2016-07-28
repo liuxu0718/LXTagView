@@ -10,12 +10,11 @@
 
 #import "LXTagView.h"
 
-static CGFloat contentLength = 0;
-static NSInteger row = 0;
-
 @interface LXTagView ()
 
 @property (nonatomic, strong) NSMutableArray *selectedArray;
+@property (nonatomic, assign) CGFloat contentLength;
+@property (nonatomic, assign) NSInteger row;
 
 @end
 
@@ -47,7 +46,10 @@ static NSInteger row = 0;
 
 - (void)setDataArray:(NSArray *)dataArray {
     _dataArray = dataArray;
-    
+    _row = 0;
+    _contentLength = 0;
+    //为了重新设置数据源.刷新UI
+    [self removeAllSubviews];
     [self initTagView];
 }
 
@@ -66,7 +68,7 @@ static NSInteger row = 0;
         [tagButton addTarget:self action:@selector(tagAction:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:tagButton];
     }
-    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (row + 1) * (_tagHeight + _tagMargin) - _tagMargin + _topSpace + _bottomSpace);
+    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (_row + 1) * (_tagHeight + _tagMargin) - _tagMargin + _topSpace + _bottomSpace);
     self.backgroundColor = [UIColor cyanColor];
 }
 
@@ -95,25 +97,32 @@ static NSInteger row = 0;
     CGFloat tagLength = 0;
     CGFloat x = 0;
     tagLength = [self getTagLengthWithString:_dataArray[index]];
-    if (_tagMargin + tagLength >= SCREEN_WIDTH - _leftSpace - _rightSpace - contentLength) {
-        row += 1;
+    if (_tagMargin + tagLength >= SCREEN_WIDTH - _leftSpace - _rightSpace - _contentLength) {
+        _row += 1;
         x = _leftSpace;
-        contentLength = tagLength;
+        _contentLength = tagLength;
     } else {
         if (index == 0) {
             x = _leftSpace;
         } else {
-            x = _leftSpace + contentLength + _tagMargin;
-            contentLength = x - _leftSpace;
+            x = _leftSpace + _contentLength + _tagMargin;
+            _contentLength = x - _leftSpace;
         }
-        contentLength += tagLength;
+        _contentLength += tagLength;
     }
-    return CGRectMake(x, _topSpace + row * (_tagMargin + _tagHeight), tagLength, _tagHeight);
+    return CGRectMake(x, _topSpace + _row * (_tagMargin + _tagHeight), tagLength, _tagHeight);
 }
 
 - (CGFloat)getTagLengthWithString:(NSString *)string {
     CGSize tagSize = [string boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - (_leftSpace + _rightSpace), _tagHeight) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : _tagFont} context:nil].size;
     return (tagSize.width + 2 * _tagPadding);
+}
+
+- (void)removeAllSubviews {
+    while (self.subviews.count) {
+        UIView* child = self.subviews.lastObject;
+        [child removeFromSuperview];
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

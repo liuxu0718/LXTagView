@@ -3,6 +3,21 @@
 
 ![image](https://github.com/liuxu0718/LXTagView/blob/master/LXTagView.gif)
 
+##Usage
+LXTagView *tagView = [[LXTagView alloc]init];
+
+tagView.delegate = self;
+
+tagView.tagMargin = 15;
+
+tagView.tagPadding = 20;
+
+//when you set all propery, and then set dataArray, not need set 'frame', it will auto caculate.
+
+tagView.dataArray = dataArray;
+
+[self.view addSubview:tagView];
+
 
 ##selectedResult
 ####- (void)LXTagViewWithSelectedArray:(NSMutableArray *)selectedArray WithSelectedTag:(UIButton *)selectedTag
