@@ -44,8 +44,11 @@
 //tag padding. default 10.
 @property (nonatomic, assign) CGFloat tagPadding;
 
-//tag margin. default 10.
-@property (nonatomic, assign) CGFloat tagMargin;
+//tag Vertical margin. default 10.
+@property (nonatomic, assign) CGFloat tagVerticalMargin;
+
+//tag Horizontal margin. default equal Vertical margin.
+@property (nonatomic, assign) CGFloat tagHorizontalMargin;
 
 //left space. default 15.
 @property (nonatomic, assign) CGFloat leftSpace;

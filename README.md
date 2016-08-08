@@ -59,9 +59,13 @@ tagView.dataArray = dataArray;
 
 @property (nonatomic, assign) CGFloat tagPadding;
 
-//tag margin. default 10.
+//tag Vertical margin. default 10.
 
-@property (nonatomic, assign) CGFloat tagMargin;
+@property (nonatomic, assign) CGFloat tagVerticalMargin;
+
+//tag Horizontal margin. default equal Vertical margin.
+
+@property (nonatomic, assign) CGFloat tagHorizontalMargin;
 
 //left space. default 15.
 

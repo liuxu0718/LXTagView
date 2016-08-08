@@ -26,7 +26,7 @@
 
     _tagView = [[LXTagView alloc]init];
     _tagView.delegate = self;
-    _tagView.tagMargin = 15;
+    _tagView.tagVerticalMargin = 15;
     _tagView.tagPadding = 20;
     _tagView.tagCornerRadius = 15;
     //when you set all propery. and then set dataArray, not need set 'frame', it will auto caculate.

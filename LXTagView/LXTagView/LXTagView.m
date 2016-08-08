@@ -31,7 +31,8 @@
         _tagBorderWidth = 1;
         _tagBorderColor = [UIColor blackColor];
         _tagPadding = 10;
-        _tagMargin = 10;
+        _tagVerticalMargin = 10;
+        _tagHorizontalMargin = _tagVerticalMargin;
         _leftSpace = 15;
         _rightSpace = _leftSpace;
         _topSpace = _leftSpace;
@@ -68,7 +69,7 @@
         [tagButton addTarget:self action:@selector(tagAction:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:tagButton];
     }
-    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (_row + 1) * (_tagHeight + _tagMargin) - _tagMargin + _topSpace + _bottomSpace);
+    self.frame = CGRectMake(0, 100, SCREEN_WIDTH, (_row + 1) * (_tagHeight + _tagVerticalMargin) - _tagVerticalMargin + _topSpace + _bottomSpace);
     self.backgroundColor = [UIColor cyanColor];
 }
 
@@ -97,7 +98,7 @@
     CGFloat tagLength = 0;
     CGFloat x = 0;
     tagLength = [self getTagLengthWithString:_dataArray[index]];
-    if (_tagMargin + tagLength >= SCREEN_WIDTH - _leftSpace - _rightSpace - _contentLength) {
+    if (_tagHorizontalMargin + tagLength >= SCREEN_WIDTH - _leftSpace - _rightSpace - _contentLength) {
         _row += 1;
         x = _leftSpace;
         _contentLength = tagLength;
@@ -105,12 +106,12 @@
         if (index == 0) {
             x = _leftSpace;
         } else {
-            x = _leftSpace + _contentLength + _tagMargin;
+            x = _leftSpace + _contentLength + _tagHorizontalMargin;
             _contentLength = x - _leftSpace;
         }
         _contentLength += tagLength;
     }
-    return CGRectMake(x, _topSpace + _row * (_tagMargin + _tagHeight), tagLength, _tagHeight);
+    return CGRectMake(x, _topSpace + _row * (_tagVerticalMargin + _tagHeight), tagLength, _tagHeight);
 }
 
 - (CGFloat)getTagLengthWithString:(NSString *)string {
