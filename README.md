@@ -95,4 +95,5 @@ tagView.dataArray = dataArray;
 
 @property (nonatomic, strong) NSArray *dataArray;
 
-###如有特殊需求可以直接修改源码, 实现方式很简单.有疑问或者发现bug请issue我或者给我发邮件, 谢谢.
+###如有特殊需求可以直接修改源码, 实现方式很简单.有疑问或者发现bug请issue我或者给我发邮件, 谢谢. 
+####目前只是简单的for循环实现, 未来会用collectionView进行复写.
